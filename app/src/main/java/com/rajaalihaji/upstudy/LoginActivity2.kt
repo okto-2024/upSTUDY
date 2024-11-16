@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
@@ -35,6 +36,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
@@ -88,65 +90,86 @@ fun LoginScreen() {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
+        Box(
+            modifier = Modifier
+                .height(250.dp)
+                .heightIn(min = 50.dp)
+                .fillMaxSize()
+                .background(Brush.verticalGradient(colors = listOf(Color(0xFF3AA5FF), Color.Blue)))
+
+        ) {
+            Text(
+                modifier = Modifier.align(Alignment.Center),
+                text = "Login",
+                fontSize = 30.sp,
+                fontWeight = FontWeight(500),
+                color = Color.Yellow
+            )
+        }
+
         Box(modifier = Modifier
-            .clip(RoundedCornerShape(bottomStart = 30.dp))
-            .height(250.dp)
             .heightIn(min = 50.dp)
             .fillMaxSize()
-            .background(Brush.verticalGradient(colors = listOf(Color.LightGray, Color.Blue)))
-
+            .background(Color.Blue)
         ) {
-            Text(modifier = Modifier.align(Alignment.Center), text = "Login", fontSize = 24.sp, color = Color.Yellow)
-        }
-
-
-        Spacer(modifier = Modifier.height(16.dp))
-        OutlinedTextField(
-            value = email,
-            onValueChange = { email = it },
-            label = { Text("Email") },
-            leadingIcon = {
-                Icon(
-                    painter = painterResource(R.drawable.ice_email),
-                    contentDescription = "Email Icon"
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .clip(RoundedCornerShape(topStart = 30.dp, topEnd = 30.dp))
+                    .background(Color.White),
+                verticalArrangement = Arrangement.Top,
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+                Spacer(modifier = Modifier.height(40.dp))
+                OutlinedTextField(
+                    value = email,
+                    onValueChange = { email = it },
+                    label = { Text("Email") },
+                    leadingIcon = {
+                        Icon(
+                            painter = painterResource(R.drawable.ice_email),
+                            contentDescription = "Email Icon"
+                        )
+                    },
+                    keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Next)
                 )
-            },
-            keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Next)
-        )
-        Spacer(modifier = Modifier.height(8.dp))
-        OutlinedTextField(
-            value = password,
-            onValueChange = { password = it },
-            label = { Text("Password") },
-            leadingIcon = {
-                Icon(
-                    painter = painterResource(R.drawable.ic_lock),
-                    contentDescription = "Lock Icon"
+                Spacer(modifier = Modifier.height(8.dp))
+                OutlinedTextField(
+                    value = password,
+                    onValueChange = { password = it },
+                    label = { Text("Password") },
+                    leadingIcon = {
+                        Icon(
+                            painter = painterResource(R.drawable.ic_lock),
+                            contentDescription = "Lock Icon"
+                        )
+                    },
+                    visualTransformation = PasswordVisualTransformation(),
+                    keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Done)
                 )
-            },
-            visualTransformation = PasswordVisualTransformation(),
-            keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Done)
-        )
-        Spacer(modifier = Modifier.height(8.dp))
-        TextButton(onClick = { /* Handle forgot password */ }) {
-            Text(text = "Forgot Password?")
-        }
-        Spacer(modifier = Modifier.height(8.dp))
-        Row(
-            horizontalArrangement = Arrangement.SpaceAround,
-        ) {
-            TextButton(onClick = { /* Handle create account */ }) {
-                Text(text = "Create Account")
-            }
-            // Spacer(modifier = Modifier.height(16.dp))
-            Button(onClick = {
-                context.startActivity(Intent(context, MainActivity::class.java))
-            }) {
-                Text(text = "Login")
-            }
-        }
+                Spacer(modifier = Modifier.height(8.dp))
+                TextButton(onClick = { /* Handle forgot password */ }) {
+                    Text(text = "Forgot Password?")
+                }
+                Spacer(modifier = Modifier.height(8.dp))
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceAround,
+                ) {
+                    TextButton(onClick = { /* Handle create account */ }) {
+                        Text(text = "Create Account")
+                    }
+                    // Spacer(modifier = Modifier.height(16.dp))
+                    Button(onClick = {
+                        context.startActivity(Intent(context, MainActivity::class.java))
+                    }) {
+                        Text(text = "Login")
+                    }
+                }
 
-        Spacer(modifier = Modifier.height(16.dp))
-        Text(text = "Version 1.0")
+                Spacer(modifier = Modifier.height(16.dp))
+                Text(text = "Version 1.0")
+            }
+        }
     }
 }
