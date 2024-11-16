@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">upSTUDY</string>
-    <string name="title_activity_profile">ProfileActivity</string>
     <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_splash_screen">SplashScreenActivity</string>
+    <string name="title_activity_welcome_screen">WelcomeScreenActivity</string>
+    <string name="title_activity_form_login">FormLoginActivity</string>
 </resources>

@@ -66,7 +66,7 @@ fun Greeting3(name: String, modifier: Modifier = Modifier) {
 
 @Preview(showBackground = true)
 @Composable
-fun GreetingPreview3() {
+fun GreetingPreview4() {
     UpSTUDYTheme {
         Greeting3("Android")
     }
