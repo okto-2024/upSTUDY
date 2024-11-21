@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "550916446355",
+    "project_id": "up-study-project",
+    "storage_bucket": "up-study-project.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:550916446355:android:fdd519313b502899951566",
+        "android_client_info": {
+          "package_name": "com.rajaalihaji.upstudy"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAWve6xf6yPlgDrvjl5wC3GmttnADyBR9A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
