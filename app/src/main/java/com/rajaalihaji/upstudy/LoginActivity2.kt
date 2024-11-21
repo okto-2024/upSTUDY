@@ -2,9 +2,11 @@ package com.rajaalihaji.upstudy
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -25,7 +27,9 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -48,12 +52,14 @@ class LoginActivity2 : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        val authViewModel : AuthViewModel by viewModels()
         setContent {
             UpSTUDYTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Greeting3(
                         name = "Android",
-                        modifier = Modifier.padding(innerPadding)
+                        modifier = Modifier.padding(innerPadding),
+                        authViewModel
                     )
                 }
             }
@@ -62,8 +68,9 @@ class LoginActivity2 : ComponentActivity() {
 }
 
 @Composable
-fun Greeting3(name: String, modifier: Modifier = Modifier) {
-    LoginScreen()
+fun Greeting3(name: String, modifier: Modifier = Modifier, authViewModel: AuthViewModel) {
+
+    LoginScreen(authViewModel = authViewModel)
 }
 
 @Preview(showBackground = true)
@@ -75,10 +82,23 @@ fun GreetingPreview4() {
 }
 
 @Composable
-fun LoginScreen() {
+fun LoginScreen(authViewModel: AuthViewModel) {
     val context = LocalContext.current
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+
+    val authState = authViewModel.authState.observeAsState()
+    LaunchedEffect(authState.value) {
+        when(authState.value){
+            is AuthState.Authenticated -> {
+                // masuk ke home
+                context.startActivity(Intent(context, MainActivity::class.java))
+            }
+            is AuthState.Error -> Toast.makeText(context,
+                (authState.value as AuthState.Error).message, Toast.LENGTH_SHORT).show()
+            else -> Unit
+        }
+    }
 
     Column(
         modifier = Modifier
@@ -161,7 +181,9 @@ fun LoginScreen() {
                     }
                     // Spacer(modifier = Modifier.height(16.dp))
                     Button(onClick = {
-                        context.startActivity(Intent(context, MainActivity::class.java))
+
+                        authViewModel.login(email,password)
+                        // context.startActivity(Intent(context, MainActivity::class.java))
                     }) {
                         Text(text = "Login")
                     }

@@ -46,7 +46,7 @@ fun Greeting3(name: String, modifier: Modifier = Modifier, context: Context = Co
 
     LaunchedEffect(key1 = true, block = {
         delay( 3000)
-        context.startActivity(Intent(context, MainActivity::class.java))
+        context.startActivity(Intent(context, LoginActivity2::class.java))
     })
     Box(modifier = Modifier.fillMaxSize().background(Color(0xFF006BFF)),
         contentAlignment = Alignment.Center
